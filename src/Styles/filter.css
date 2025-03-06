@@ -1,0 +1,62 @@
+/* Filter container */
+.filter-wrapper {
+      position: relative;
+      display: inline-block;
+    }
+    
+    /* Filter button */
+    .filter-button {
+      background: #333;
+      font-size:medium; 
+      color: #fff;
+      padding: 10px 18px ;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .price-button {
+      margin-right: 20px; 
+  }
+    
+    .filter-button:hover,
+    .filter-button.active {
+      background: #00bcd4;
+    }
+    
+    /* Dropdown styling */
+    .filter-dropdown {
+      position: absolute;
+      background: #222;
+      border: 1px solid #444;
+      border-radius: 4px;
+      width: 200px;
+      margin-top: 5px;
+      padding: 8px 0;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      z-index: 1000;
+      list-style: none;
+      padding-left: 0;
+    }
+    
+    .dropdown-item {
+      padding: 8px 16px;
+    }
+    
+    
+    .dropdown-item label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+    
+    .dropdown-item:hover {
+      background: #333;
+    }
+    
+    input[type='checkbox'] {
+      accent-color: #00bcd4;
+    }
+    

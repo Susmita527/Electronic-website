@@ -1,0 +1,21 @@
+.banner-slider {
+    width: 100%;
+    /* max-width: 1200px; */
+    margin: auto;
+    overflow: hidden;
+  }
+  
+  .banner img {
+    width: 100%;
+    /* border-radius: 10px; */
+    height: 300px;
+  }
+  
+  .swiper-pagination-bullet {
+    background: #999;
+  }
+  
+  .swiper-pagination-bullet-active {
+    background: rgb(8, 8, 8);
+  }
+  

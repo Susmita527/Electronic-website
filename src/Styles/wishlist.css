@@ -1,0 +1,53 @@
+.wishlist-page {
+      padding: 20px;
+      text-align: center;
+    }
+    
+    .wishlist-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    
+    .wishlist-card {
+      border: 1px solid #ddd;
+      padding: 15px;
+      margin: 10px;
+      text-align: center;
+      width: 200px;
+      position: relative;
+      background: #fff;
+      border-radius: 8px;
+    }
+    
+    .wishlist-image {
+      width: 100%;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    
+    .wishlist-title {
+      font-size: 16px;
+      font-weight: bold;
+      margin: 10px 0;
+    }
+    
+    .wishlist-price {
+      color: green;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+    
+    .remove-wishlist {
+      background-color: red;
+      color: white;
+      padding: 5px 10px;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    
+    .remove-wishlist:hover {
+      background-color: darkred;
+    }
+    
