@@ -10,7 +10,7 @@ import ListProduct from '../Components/ListProduct'
 import Categories from '../Components/Categories';
 import ProductList from '../Components/ProductList';
 import Navbar from '../Components/Navbar';
-import Search from '../Components/Search';
+import Search from '../Components/Search';   
 import Footer from '../UI/Footer';
 import ProductDetails from '../Components/ProductDetails';
 import Wishlist from '../Components/Wishlist';
@@ -29,7 +29,6 @@ function App() {
         <Route path="/products/:categoryId" element={<ProductList />} />
         <Route path="/productlists/:categoryId" element={<ListProduct />} />
         <Route path="/search/:value" element={<Search />} />
-        <Route path="/productdetails/:productId" element={<ProductDetails />} />
         <Route path="/wishlist" element={<Wishlist />} />
       </Routes>
       <Footer/>

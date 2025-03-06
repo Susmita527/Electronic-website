@@ -15,14 +15,14 @@ const categories = [
 ]
 function Categories() {
     const navigate = useNavigate();
-    const handleCategoryClick = (categoryId) => {
-        navigate(`/products/${categoryId}`);
-      };
+    // const handleCategoryClick = (categoryId) => {
+    //     navigate(`/products/${categoryId}`);
+    //   };
   return (
     <div className="categories-container">
     {categories.map((category) => (
         <div key={category.id} className="category-item"
-           onClick={() => handleCategoryClick(category.id)}>
+           onClick={() => navigate(`/productlists/${category.id}`)}>
             <img src={category.img} alt={category.name} className="category-icon" />
             {category.name}
         </div>

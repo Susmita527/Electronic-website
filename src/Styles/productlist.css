@@ -105,3 +105,25 @@
   text-align: center;
   margin-top: 50px;
 }
+
+.load-more-btn {
+  display: block;  /* Ensure it takes full width */
+  width: 150px; /* Adjust width to match the image */
+  height: 40px; /* Set height to match */
+  margin: 40px auto ; 
+  padding: 10px 20px;   
+  background-color: #2623db; /* Blue background */
+  color: white; /* White text */
+  border: none; /* Remove border */
+  border-radius: 5px; /* Rounded corners */
+  font-size: 16px; /* Adjust font size */
+  font-weight: bold; /* Bold text */
+  text-align: center; /* Center text */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s ease-in-out; /* Smooth transition */
+}
+
+.load-more-btn:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+

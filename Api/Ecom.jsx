@@ -119,12 +119,14 @@ export const getFilteredProduct = async (categoryId, minPrice, maxPrice) => {
 };
 
 
-export const allProducts = async () => {
+export const allProducts = async (page) => {
   try {
     const response = await Ecom.get("/products",{
       params:{
-       per_page:100,
-        category:52,
+       category:52,
+       per_page:10,
+       page:page,
+      
       },
     })
     return response.data;

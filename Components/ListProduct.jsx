@@ -3,13 +3,18 @@ import { getProductsByCategory, getFilteredProduct } from "../Api/Ecom";
 import { useParams, useNavigate } from "react-router-dom";
 import { FaRegHeart } from "react-icons/fa";
 import Filter from "../UI/Filter";
+
 import "../src/Styles/productlist.css";
+
+import Pagenation from "../UI/Pagenation";
 
 function ListProduct() {
   const { categoryId } = useParams();
   const [products, setProducts] = useState([]);           
   const [filteredProducts, setFilteredProducts] = useState([]); 
   const [wishlist, setWishlist] = useState([]);
+  const [currentPage,setCurrentpage]=useState(1);
+  const [postPerPage]=useState(4);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -77,7 +82,9 @@ function ListProduct() {
     // navigate("/wishlist"); // Navigate after updating localStorage
 };
  
-  
+const lastPostIndex = currentPage * postPerPage;
+const firstPostIndex = lastPostIndex - postPerPage;
+const currentPosts = filteredProducts.slice(firstPostIndex, lastPostIndex);
 
   return (
     <div className="product-page">
@@ -86,10 +93,10 @@ function ListProduct() {
       </div>
 
       <div className="product-container">
-        {filteredProducts.length === 0 ? (
+        {currentPosts.length === 0 ? (
           <p className="loading-text">No products found.</p>
         ) : (
-          filteredProducts.map((product) => (
+          currentPosts.map((product) => (
             <div
               key={product.id}
               className="product-card"
@@ -115,6 +122,11 @@ function ListProduct() {
           ))
         )}
       </div>
+      <Pagenation totalPosts={products.length}
+      postperpage={postPerPage}
+      setCurrentpage={setCurrentpage} 
+      currentPage={currentPage}
+      />
     </div>
   );
 }

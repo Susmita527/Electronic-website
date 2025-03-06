@@ -5,22 +5,38 @@ import { useNavigate } from 'react-router-dom';
 
 function AllProduct() {
   const[product,setProduct]=useState([])
+  const [page,setPage]=useState(1);
+  const[hasProduct,setHasProduct]=useState(true);
   const navigate=useNavigate();
+
   useEffect(() => {
-      const fetchProducts = async () => {
-        const data = await allProducts();
-        console.log("Category Products:", data);
-        setProduct(data);
-      };
-      fetchProducts();
-    }, []);
+    const fetchProducts = async () => {
+      try {
+        const data = await allProducts(page); 
+        if (data.length > 0) {
+          setProduct((prev) => [...prev, ...data]); 
+        } else {
+          setHasProduct(false); 
+        }
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
+
+    fetchProducts();
+  }, [page]);
+
+  const handleLoadMore = () => {
+    setPage((prevPage) => prevPage + 1); // Increment page to fetch next set of products
+  };
 
     const handleDetails = (productId) => {
       navigate(`/productdetails/${productId}`);
     };
-      
+ 
   return (
-     <div className="product-container">
+    <>
+    <div className="product-container">
         {product.length === 0 ? (
           <p className="loading-text">Loading products...</p>
         ) : (
@@ -40,7 +56,14 @@ function AllProduct() {
             </div>
           ))
         )}
+        
       </div>
+      {hasProduct && (
+          <button className="load-more-btn" onClick={handleLoadMore}>
+            Load More
+          </button>
+        )}
+      </>
     );
 }
 
