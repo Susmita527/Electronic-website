@@ -29,6 +29,7 @@ function App() {
         <Route path="/products/:categoryId" element={<ProductList />} />
         <Route path="/productlists/:categoryId" element={<ListProduct />} />
         <Route path="/search/:value" element={<Search />} />
+        <Route path="/productdetails/:productId" element={<ProductDetails />} />
         <Route path="/wishlist" element={<Wishlist />} />
       </Routes>
       <Footer/>
