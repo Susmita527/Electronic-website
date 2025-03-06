@@ -14,10 +14,11 @@ function Navbar() {
   }
 
   return (
+    // Details
     <nav className="navbar">
     <div className="nav-left">
       <h1 className="logo">Electronic<span className="logo-dot">.</span></h1>
-
+         {/* drop-down menu */}
       <div className="dropdown">
       <button className="menu-btn" onClick={() => setDropdownOpen(!dropdownOpen)}>
         <FaBars className="menu-icon" />
