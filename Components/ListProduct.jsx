@@ -3,20 +3,24 @@ import { getProductsByCategory, getFilteredProduct } from "../Api/Ecom";
 import { useParams, useNavigate } from "react-router-dom";
 import { FaRegHeart } from "react-icons/fa";
 import Filter from "../UI/Filter";
-
 import "../src/Styles/productlist.css";
-
 import Pagenation from "../UI/Pagenation";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+
 
 function ListProduct() {
   const { categoryId } = useParams();
   const [products, setProducts] = useState([]);           
   const [filteredProducts, setFilteredProducts] = useState([]); 
   const [wishlist, setWishlist] = useState([]);
+  const [cart,setCart]=useState([]);
   const [currentPage,setCurrentpage]=useState(1);
   const [postPerPage]=useState(4);
   const navigate = useNavigate();
 
+  //calling api
   useEffect(() => {
     const fetchProducts = async () => {
       const data = await getProductsByCategory(categoryId);
@@ -27,10 +31,12 @@ function ListProduct() {
     fetchProducts();
   }, [categoryId]);
 
+  //handling product description
   const handleDetails = (productId) => {
     navigate(`/productdetails/${productId}`);
   };
 
+  //handling price and brand filter 
   const handleFilterChange = async (selectedRanges, selectedBrands) => {
     try {
       let results = [];
@@ -41,12 +47,9 @@ function ListProduct() {
           console.log("if condition",fetched)
         }
       } else {
-     
         results = [...products];
         console.log("else part",results)
       }
-
-
       if (selectedBrands.length > 0) {
         results = results.filter((product) => {
           const productBrand = product.brands?.[0]?.name?.toLowerCase(); 
@@ -58,10 +61,7 @@ function ListProduct() {
           );
         });
       }
-
-      
       const uniqueResults = Array.from(new Map(results.map(p => [p.id, p])).values());
-
       console.log("Filtered Products:", uniqueResults);
       setFilteredProducts(uniqueResults);
     } catch (error) {
@@ -69,6 +69,7 @@ function ListProduct() {
     }
   };
 
+  //handling wishlist
   const handleWishlist = (product) => {
     const storedWishlist = JSON.parse(localStorage.getItem("wishlist")) || []; // Retrieve existing wishlist
     const existingWishlistItem = storedWishlist.find((item) => item.id === product.id);
@@ -78,9 +79,36 @@ function ListProduct() {
         setWishlist(updatedWishlist); // Update state
         localStorage.setItem("wishlist", JSON.stringify(updatedWishlist)); // Store in localStorage
     }
-    
     // navigate("/wishlist"); // Navigate after updating localStorage
 };
+
+//handle add to cart
+const handleAddToCart = (product) => {
+  console.log("Add to Cart clicked for:", product.name);
+  let storedCart = JSON.parse(localStorage.getItem("cart")) || []; // Ensure storedCart is always an array
+  const existingItem = storedCart.find((item) => item.id === product.id);
+
+  if (existingItem) {
+    existingItem.quantity += 1; // Increase quantity
+  } else {
+    storedCart = [...storedCart, { ...product, quantity: 1 }]; // Create a new array
+  }
+
+  setCart(storedCart); // Update state
+  localStorage.setItem("cart", JSON.stringify(storedCart)); // Store in localStorage
+
+  toast.success("Product added to cart!", {
+    position: "top-right",
+    autoClose: 1000, 
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "colored",
+})
+};
+
  
 const lastPostIndex = currentPage * postPerPage;
 const firstPostIndex = lastPostIndex - postPerPage;
@@ -100,9 +128,9 @@ const currentPosts = filteredProducts.slice(firstPostIndex, lastPostIndex);
             <div
               key={product.id}
               className="product-card"
-              onClick={() => handleDetails(product.id)}
+              
             >
-              <button className="wishlist-btn" 
+              <button className="wishlist-btnn" 
               onClick={(e) => {
                 e.stopPropagation(); 
                 handleWishlist(product);
@@ -111,13 +139,14 @@ const currentPosts = filteredProducts.slice(firstPostIndex, lastPostIndex);
                 <FaRegHeart  style={{ color: wishlist.find((item) => item.id === product.id) ? "red" : "white" }}  />
               </button>
               <img
-                src={product.images?.[0]?.src || "placeholder.jpg"}
+                src={product.images?.[0]?.src}
                 alt={product.name}
                 className="product-image"
+                onClick={() => handleDetails(product.id)}
               />
               <h3 className="product-title">{product.name}</h3>
               <p className="product-price">₹{product.price}</p>
-              <button className="add-to-cart">Add to cart</button>
+              <button className="add-to-cart" onClick={()=>handleAddToCart(product)}>Add to cart</button>
             </div>
           ))
         )}

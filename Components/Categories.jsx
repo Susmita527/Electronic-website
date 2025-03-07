@@ -15,9 +15,7 @@ const categories = [
 ]
 function Categories() {
     const navigate = useNavigate();
-    // const handleCategoryClick = (categoryId) => {
-    //     navigate(`/products/${categoryId}`);
-    //   };
+    
   return (
     <div className="categories-container">
     {categories.map((category) => (

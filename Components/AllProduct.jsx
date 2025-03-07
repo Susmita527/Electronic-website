@@ -27,7 +27,7 @@ function AllProduct() {
   }, [page]);
 
   const handleLoadMore = () => {
-    setPage((prevPage) => prevPage + 1); // Increment page to fetch next set of products
+    setPage((prevPage) => prevPage + 1); 
   };
 
     const handleDetails = (productId) => {

@@ -60,9 +60,9 @@ function Navbar() {
           <FaUser className="icon" />
         </Link>
 
-        <Link to="/cart" className="cart-container">
-          <FaShoppingCart className="icon cart-icon" />
-          <span className="cart-count">0</span>
+        <Link to="/cart" className="cartt-container">
+          <FaShoppingCart className="icon cartt-icon" />
+          {/* <span className="cartt-count">0</span> */}
         </Link>
       </div>
     </nav>

@@ -134,17 +134,17 @@ body {
 }
 
 /* Cart Section */
-.cart-container {
+.cartt-container {
   position: relative;
   text-decoration: none;
 }
 
-.cart-icon {
+.cartt-icon {
   font-size: 22px;
   color: white;
 }
 
-.cart-count {
+.cartt-count {
   position: absolute;
   top: -5px;
   right: -10px;
