@@ -36,7 +36,7 @@ function Wishlist() {
               onClick={() => handleDetails(product.id)}
             >
               <button
-                className="wishlist-btn remove-wishlist"
+                className="wishlist-btnn remove-wishlist"
                 onClick={(e) => {
                   e.stopPropagation(); // Prevents navigating to product details
                   removeFromWishlist(product.id);

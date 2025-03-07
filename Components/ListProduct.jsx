@@ -85,11 +85,11 @@ function ListProduct() {
 //handle add to cart
 const handleAddToCart = (product) => {
   console.log("Add to Cart clicked for:", product.name);
-  let storedCart = JSON.parse(localStorage.getItem("cart")) || []; // Ensure storedCart is always an array
+  let storedCart = JSON.parse(localStorage.getItem("cart")); // Ensure storedCart is always an array
   const existingItem = storedCart.find((item) => item.id === product.id);
 
   if (existingItem) {
-    existingItem.quantity += 1; // Increase quantity
+    // existingItem.quantity += 1; // Increase quantity
   } else {
     storedCart = [...storedCart, { ...product, quantity: 1 }]; // Create a new array
   }
