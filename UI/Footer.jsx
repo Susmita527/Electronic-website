@@ -30,10 +30,6 @@ function Footer() {
             <li>About Electronic</li>
             <li>Help & Support</li>
             <li>FAQs</li>
-            {/* <li>Buying Guide</li>
-            <li>Return Policy</li>
-            <li>Privacy Policy</li>
-            <li>Careers at Croma</li> */}
           </ul>
         </div>
 
@@ -41,7 +37,7 @@ function Footer() {
         <div className="footer-section">
           <h3>PRODUCTS</h3>
           <ul>
-          <Link> <li>Televisions </li></Link>
+            <li>Televisions </li> 
             <li>Home Appliances</li>
             <li>Phones</li>
             <li>Computers</li>
@@ -50,7 +46,7 @@ function Footer() {
             <li>Laptops</li>
           </ul>
         </div>
-     </div> {/* </div> */}
+     </div> 
 
       {/* Copyright Section */}
       <div className="footer-bottom">

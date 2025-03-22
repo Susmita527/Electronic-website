@@ -4,18 +4,6 @@ import { useNavigate } from "react-router-dom";
 
 import "../src/Styles/categorycard.css"
 
-// const category=[
-//     {name:"Tablets" ,img:"/images/tabb.webp"},
-//     {name:"Laptops" ,img:"/images/lapp.webp"},
-//     {name:"EarPhones" ,img:"/images/ear.webp"},
-//     {name:"Television" ,img:"/images/tvv.webp"},
-//     {name:"Mobile Phones" ,img:"/images/ph.webp"},
-//     {name:"Washing Machines" ,img:"/images/wash.webp"},
-//     {name:"Sound Bar" ,img:"/images/sound.webp"},
-//     {name:"Air Conditioner" ,img:"/images/acc.webp"},
-//     {name:"Oven" ,img:"/images/ovn.webp"},
-
-// ]
 
 function CategoryCard() {
   const [categories, setCategories] = useState([]);

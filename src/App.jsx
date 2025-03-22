@@ -14,6 +14,8 @@ import Wishlist from '../Components/Wishlist';
 import AllProduct from '../Components/AllProduct';
 import Cart from '../Components/Cart';
 import { ToastContainer } from "react-toastify";
+import Signup from '../Components/Signup';
+import Login from '../Components/Login';
 
 function App() {
  
@@ -29,7 +31,9 @@ function App() {
         <Route path="/search/:value" element={<Search />} />
         <Route path="/productdetails/:productId" element={<ProductDetails />} />
         <Route path="/wishlist" element={<Wishlist />} />
-        <Route path="/cart" element={<Cart />} />  
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/signup" element={<Signup />} /> 
+        <Route path="/login" element={<Login />} />  
       </Routes>
       <ToastContainer />
       <Footer/>

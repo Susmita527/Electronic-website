@@ -29,13 +29,19 @@ function Bannerslider() {
 
         <SwiperSlide>
           <div className="banner">
-            <img src="/images/ecom3.webp" alt="Banner 2" />
+            <img src="/images/ecom6.webp" alt="Banner 2" />
           </div>
         </SwiperSlide>
 
         <SwiperSlide>
           <div className="banner">
             <img src="/images/ecom-2.webp" alt="Banner 3" />
+          </div>
+        </SwiperSlide>
+
+        <SwiperSlide>
+          <div className="banner">
+            <img src="/images/ecom7.webp" alt="Banner 7" />
           </div>
         </SwiperSlide>
         

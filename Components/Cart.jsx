@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "../src/Styles/cart.css";
 
 function Cart() {
-  const [cart, setCart] = useState(JSON.parse(localStorage.getItem("cart")) || []);
+  const [cart, setCart] = useState(JSON.parse(localStorage.getItem("cart")));
 
   useEffect(() => {
     console.log("Cart Data:", cart); 
@@ -21,7 +21,7 @@ function Cart() {
       <div className="shopping-cart-container">
         <h2 className="shopping-cart-title">YOUR CART</h2>
 
-        {/* Cart Items */}
+       
         {cart.length === 0 ? (
           <p className="empty-shopping-cart">Your cart is empty!</p>
         ) : (

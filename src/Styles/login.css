@@ -1,0 +1,177 @@
+/* Container Styles */
+.login-container {
+      min-height: vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      background-color: black;
+      font-family: Arial, sans-serif;
+      margin:60px;
+    }
+    
+    /* Login Box */
+    .login-box {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background-color: rgba(0, 0, 0, 0.8);
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      width: 300px;
+      box-shadow: 0 0 15px cyan;
+    }
+    
+    /* Title */
+    .login-title {
+      color: white;
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+    
+    /* Input Fields */
+    .login-email,
+    .login-password {
+      width: 90%;
+      padding: 10px;
+      margin: 10px 0;
+      border: none;
+      border-bottom: 2px solid cyan;
+      background: transparent;
+      color: white;
+      font-size: 16px;
+    }
+    
+    .login-email::placeholder,
+    .login-password::placeholder {
+      color: rgba(255, 255, 255, 0.7);
+    }
+    
+    /* Login Button */
+    .login-button {
+      width: 100%;
+      padding: 10px;
+      background-color: cyan;
+      border: none;
+      color: black;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    
+    .login-button:hover {
+      background-color: #00ffff;
+    }
+    
+    /* Error Message */
+    .error-message {
+      color: red;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+    
+    /* Sign Up Link */
+    .signup-link {
+      color: white;
+      margin-top: 10px;
+    }
+    
+    .signup-text {
+      color: rgb(243, 239, 16);
+      cursor: pointer;
+      font-weight: bold;
+    }
+    
+    /* Signup Page Container */
+.signup-container {
+      /* height: 40%; */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      background-color: black;
+      font-family: Arial, sans-serif;
+      margin:40px;
+    }
+    
+    /* Signup Box */
+    .signup-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: rgba(0, 0, 0, 0.8);
+      padding: 25px;
+      border-radius: 12px;
+      text-align: center;
+      width: 350px;
+      box-shadow: 0 0 15px rgb(127,255,0);
+    }
+    
+    /* Signup Title */
+    .signup-title {
+      color: white;
+      font-size: 24px;
+      margin-bottom: 15px;
+    }
+    
+    /* Input Fields */
+    .signup-name,
+    .signup-email,
+    .signup-password,
+    .signup-contact {
+      width: 90%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #7fff00;
+      background-color: transparent;
+      color: white;
+      font-size: 16px;
+      outline: none;
+      border-radius: 5px;
+    }
+    
+    .signup-name::placeholder,
+    .signup-email::placeholder,
+    .signup-password::placeholder,
+    .signup-contact::placeholder {
+      color: rgba(255, 255, 255, 0.7);
+    }
+    
+    /* Signup Button */
+    .signup-button {
+      width: 90%;
+      padding: 12px;
+      background-color: #7fff00;
+      border: none;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+      border-radius: 5px;
+    }
+    
+    .signup-button:hover {
+      background-color: #ec9511;
+    }
+    
+    /* Error Message */
+    .signup-error {
+      color: #ff4d4d;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+    
+    /* Login Link */
+    .login-link {
+      color: white;
+      margin-top: 10px;
+    }
+    
+    .login-link span {
+      color: rgb(255, 60, 0);
+      cursor: pointer;
+      font-weight: bold;
+    }
+    

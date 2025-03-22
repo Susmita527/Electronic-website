@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 function Navbar() {
   const[data,setData]=useState("");
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [dropdownOpenLogin, setDropdownOpenLogin] = useState(false);
   const navigate=useNavigate();
 
   const handleSearch=()=>{
@@ -55,10 +56,20 @@ function Navbar() {
         <Link to="/wishlist" className="nav-btn">
           <FaHeart className="icon wishlist-icon" />
         </Link>
-
-        <Link to="/login" className="nav-btn">
-          <FaUser className="icon" />
-        </Link>
+        
+     
+        <div className="dropdown">
+          <button className="nav-btn" onClick={() => setDropdownOpenLogin(!dropdownOpenLogin)}>
+            <FaUser className="icon" />
+          </button>
+          {dropdownOpenLogin && (
+            <div className="dropdown-content">
+              <Link to="/login">🔑 Login</Link>
+              <Link to="/signup">📝 Signup</Link>
+            </div>
+          )}
+        </div>
+        
 
         <Link to="/cart" className="cartt-container">
           <FaShoppingCart className="icon cartt-icon" />

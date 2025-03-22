@@ -42,7 +42,7 @@ function AllProduct() {
         ) : (
           product.map((product) => (
             <div key={product.id} className="product-card" onClick={()=>handleDetails(product.id)}>
-              <button className="wishlist-btn">
+              <button className="wishlist-btnn">
                 <FaRegHeart />
               </button>
               <img

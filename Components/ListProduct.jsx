@@ -79,22 +79,20 @@ function ListProduct() {
         setWishlist(updatedWishlist); // Update state
         localStorage.setItem("wishlist", JSON.stringify(updatedWishlist)); // Store in localStorage
     }
-    // navigate("/wishlist"); // Navigate after updating localStorage
+    // navigate("/wishlist"); 
 };
 
 //handle add to cart
 const handleAddToCart = (product) => {
   console.log("Add to Cart clicked for:", product.name);
-  let storedCart = JSON.parse(localStorage.getItem("cart")); // Ensure storedCart is always an array
+  let storedCart = JSON.parse(localStorage.getItem("cart")); 
   const existingItem = storedCart.find((item) => item.id === product.id);
-
-  if (existingItem) {
-    // existingItem.quantity += 1; // Increase quantity
-  } else {
-    storedCart = [...storedCart, { ...product, quantity: 1 }]; // Create a new array
-  }
-
+  console.log("existingItem",existingItem);
+  if (existingItem==undefined) {
+    storedCart = [...storedCart, { ...product }];
+  } 
   setCart(storedCart); // Update state
+  console.log("updated cart",cart);
   localStorage.setItem("cart", JSON.stringify(storedCart)); // Store in localStorage
 
   toast.success("Product added to cart!", {
@@ -109,7 +107,7 @@ const handleAddToCart = (product) => {
 })
 };
 
- 
+ //pagination
 const lastPostIndex = currentPage * postPerPage;
 const firstPostIndex = lastPostIndex - postPerPage;
 const currentPosts = filteredProducts.slice(firstPostIndex, lastPostIndex);
@@ -136,7 +134,7 @@ const currentPosts = filteredProducts.slice(firstPostIndex, lastPostIndex);
                 handleWishlist(product);
               }}
               >
-                <FaRegHeart  style={{ color: wishlist.find((item) => item.id === product.id) ? "red" : "white" }}  />
+              <FaRegHeart  style={{ color: wishlist.find((item) => item.id === product.id) ? "red" : "white" }}  />
               </button>
               <img
                 src={product.images?.[0]?.src}

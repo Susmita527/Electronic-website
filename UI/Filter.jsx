@@ -21,7 +21,7 @@ function Filter({ FilterChange, products }) {
 
   const handlePriceFilterChange = (price) => {
     let updatedRanges = [...selectedRanges];
-    if (updatedRanges.some(range => range.label === price.label)) {
+    if (updatedRanges.find(range => range.label === price.label)) {
       // Remove if already selected
       updatedRanges = updatedRanges.filter(range => range.label !== price.label);
     } else {
@@ -60,7 +60,7 @@ function Filter({ FilterChange, products }) {
               <label>
                 <input
                   type="checkbox"
-                  checked={selectedRanges.some(range => range.label === price.label)}
+                  checked={selectedRanges.find(range => range.label === price.label)}
                   onChange={() => handlePriceFilterChange(price)}
                 />
                 {price.label}
