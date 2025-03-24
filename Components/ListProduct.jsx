@@ -75,7 +75,7 @@ function ListProduct() {
     const existingWishlistItem = storedWishlist.find((item) => item.id === product.id);
     
     if (!existingWishlistItem) {
-        const updatedWishlist = [...storedWishlist, product]; // Append product to existing list
+        const updatedWishlist = [...storedWishlist, product]; // Add product into existing list
         setWishlist(updatedWishlist); // Update state
         localStorage.setItem("wishlist", JSON.stringify(updatedWishlist)); // Store in localStorage
     }
@@ -89,11 +89,11 @@ const handleAddToCart = (product) => {
   const existingItem = storedCart.find((item) => item.id === product.id);
   console.log("existingItem",existingItem);
   if (existingItem==undefined) {
-    storedCart = [...storedCart, { ...product }];
+    storedCart.push({ ...product });
   } 
-  setCart(storedCart); // Update state
+  setCart(storedCart); 
   console.log("updated cart",cart);
-  localStorage.setItem("cart", JSON.stringify(storedCart)); // Store in localStorage
+  localStorage.setItem("cart", JSON.stringify(storedCart));
 
   toast.success("Product added to cart!", {
     position: "top-right",
