@@ -6,7 +6,7 @@ export const HandleAddtoCart = (product, setCart) => {
   let storedCart = JSON.parse(localStorage.getItem("cart")) || []; 
   const existingItem = storedCart.find((item) => item.id === product.id);
 
-  if (!existingItem) {
+  if (existingItem=undefined) {
     storedCart.push({ ...product });
     setCart(storedCart); 
     localStorage.setItem("cart", JSON.stringify(storedCart));

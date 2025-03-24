@@ -7,6 +7,7 @@ import "../src/Styles/productlist.css";
 import Pagenation from "../UI/Pagenation";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import HandleAddtoCart from "./HandleAddtoCart";
 
 
 
@@ -75,37 +76,13 @@ function ListProduct() {
     const existingWishlistItem = storedWishlist.find((item) => item.id === product.id);
     
     if (!existingWishlistItem) {
-        const updatedWishlist = [...storedWishlist, product]; // Add product into existing list
+        const updatedWishlist = [...storedWishlist, product]; // Add product in existing list
         setWishlist(updatedWishlist); // Update state
         localStorage.setItem("wishlist", JSON.stringify(updatedWishlist)); // Store in localStorage
     }
     // navigate("/wishlist"); 
 };
 
-//handle add to cart
-const handleAddToCart = (product) => {
-  console.log("Add to Cart clicked for:", product.name);
-  let storedCart = JSON.parse(localStorage.getItem("cart")); 
-  const existingItem = storedCart.find((item) => item.id === product.id);
-  console.log("existingItem",existingItem);
-  if (existingItem==undefined) {
-    storedCart.push({ ...product });
-  } 
-  setCart(storedCart); 
-  console.log("updated cart",cart);
-  localStorage.setItem("cart", JSON.stringify(storedCart));
-
-  toast.success("Product added to cart!", {
-    position: "top-right",
-    autoClose: 1000, 
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-    theme: "colored",
-})
-};
 
  //pagination
 const lastPostIndex = currentPage * postPerPage;
@@ -144,7 +121,7 @@ const currentPosts = filteredProducts.slice(firstPostIndex, lastPostIndex);
               />
               <h3 className="product-title">{product.name}</h3>
               <p className="product-price">₹{product.price}</p>
-              <button className="add-to-cart" onClick={()=>handleAddToCart(product)}>Add to cart</button>
+              <button className="add-to-cart" onClick={()=>HandleAddtoCart(product,setCart)}>Add to cart</button>
             </div>
           ))
         )}

@@ -42,7 +42,7 @@ function Cart() {
     const totalAmount = cart.reduce((total, item) => total + parseFloat(item.price || 0), 0) * 100;
 
     const options = {
-      key: "rzp_test_x4P0tyK1rutmlg", // Replace with your actual Razorpay Key ID
+      key: "rzp_test_x4P0tyK1rutmlg", 
       amount: totalAmount,
       currency: "INR",
       name: "Electronic Store",
@@ -51,7 +51,7 @@ function Cart() {
         alert(`Payment successful! Payment ID: ${response.razorpay_payment_id}`);
         localStorage.removeItem("cart");
         setCart([]);
-        navigate("/success"); // Redirect to success page
+        navigate("/success");
       },
       theme: {
         color: "#3399cc",

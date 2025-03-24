@@ -2,9 +2,11 @@ import React,{useEffect,useState} from 'react'
 import { allProducts } from '../Api/Ecom';
 import { FaRegHeart } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
+import HandleAddtoCart from './HandleAddtoCart';
 
 function AllProduct() {
-  const[product,setProduct]=useState([])
+  const[product,setProduct]=useState([]);
+  const[cart,setCart]=useState([]);
   const [page,setPage]=useState(1);
   const[hasProduct,setHasProduct]=useState(true);
   const navigate=useNavigate();
@@ -41,7 +43,7 @@ function AllProduct() {
           <p className="loading-text">Loading products...</p>
         ) : (
           product.map((product) => (
-            <div key={product.id} className="product-card" onClick={()=>handleDetails(product.id)}>
+            <div key={product.id} className="product-card">
               <button className="wishlist-btnn">
                 <FaRegHeart />
               </button>
@@ -49,10 +51,11 @@ function AllProduct() {
                 src={product.images && product.images.length > 0 ? product.images[0].src : "placeholder.jpg"}
                 alt={product.name}
                 className="product-image"
+                onClick={()=>handleDetails(product.id)}
               />
               <h3 className="product-title">{product.name}</h3>
               <p className="product-price">₹{product.price}</p>
-              <button className="add-to-cart">Add to cart</button>
+              <button className="add-to-cart" onClick={()=>HandleAddtoCart(product,setCart)}>Add to cart</button>
             </div>
           ))
         )}
