@@ -1,18 +1,36 @@
-import React ,{useState}from 'react'
+import React ,{useState,useEffect}from 'react'
 import { FaSearch, FaUser, FaShoppingCart, FaBars, FaHeart, FaHome,FaChevronRight } from "react-icons/fa";
 import "../src/Styles/navbar.css"
 import { Link, useNavigate } from 'react-router-dom';
+import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 function Navbar() {
   const[data,setData]=useState("");
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [dropdownOpenLogin, setDropdownOpenLogin] = useState(false);
   const navigate=useNavigate();
+  const [user, setUser] = useState(null);
+  const auth = getAuth(); 
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser); 
+    });
+    return () => unsubscribe(); 
+  }, [auth]);
 
   const handleSearch=()=>{
       navigate(`/search/${data}`);
       setData(""); 
-    
   }
+
+  const handleLogout = async () => {
+    try {
+      await signOut(auth); 
+      navigate("/"); 
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
+  };
 
   return (
     // Details
@@ -64,8 +82,17 @@ function Navbar() {
           </button>
           {dropdownOpenLogin && (
             <div className="dropdown-content">
-              <Link to="/login">🔑 Login</Link>
-              <Link to="/signup">📝 Signup</Link>
+               {user ? (
+                <>
+                  <Link to="/profile">👤 Profile</Link>
+                  <button onClick={handleLogout} className="logout-btn">🚪 Logout</button>
+                </>
+              ) : (
+                <>
+                  <Link to="/login">🔑 Login</Link>
+                  <Link to="/signup">📝 Signup</Link>
+                </>
+              )}
             </div>
           )}
         </div>

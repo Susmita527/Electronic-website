@@ -5,12 +5,18 @@ import { useNavigate } from "react-router-dom";
 function Cart() {
   const navigate = useNavigate(); 
   const [cart, setCart] = useState(JSON.parse(localStorage.getItem("cart")));
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
 
   useEffect(() => {
     console.log("Cart Data:", cart); 
     localStorage.setItem("cart", JSON.stringify(cart));
     console.log("after cart",cart);
   }, [cart]);
+
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    setUser(storedUser);
+  }, []);
 
   const removeFromCart = (id) => {
     const updatedCart = cart.filter((item) => item.id !== id);
@@ -33,7 +39,14 @@ function Cart() {
   };
 
   const handlePayment = async () => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (!user) {
+      alert("Please login to proceed to checkout.");
+      navigate("/login");  
+      return;
+    }
     const isScriptLoaded = await loadRazorpayScript();
+    
     if (!isScriptLoaded) {
       alert("Failed to load Razorpay. Please check your internet connection.");
       return;

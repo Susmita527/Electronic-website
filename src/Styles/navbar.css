@@ -177,3 +177,27 @@ body {
       margin-top: 10px;
   }
 }
+
+.dropdown-content a, .dropdown-content button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: black; /* Match Profile Button */
+  color: white;
+  padding: 10px;
+  text-decoration: none;
+  border: none;
+  width: 100%;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s;
+}
+
+.dropdown-content a:hover, .dropdown-content button:hover {
+  background: #333; /* Darker hover effect */
+}
+
+.dropdown-content button {
+  text-align: left;
+  width: 100%;
+}

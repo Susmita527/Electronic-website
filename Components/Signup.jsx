@@ -5,6 +5,8 @@ import { auth } from "../Api/firebase";
 // import "../src/Styles/signup.css";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import {GoogleMap,useJsApiLoader,StandaloneSearchBox} from '@react-google-maps/api'
+
 
 function Signup() {
   const [user, setUser] = useState({
@@ -12,15 +14,16 @@ function Signup() {
     email: "",
     password: "",
     contact: "",
+    address:"",
   });
 
   const [error, setError] = useState("");
+  const [searchBox, setSearchBox] = useState(null);
   const navigate = useNavigate();
+  
 
   const handleChange = (e) => {
-
-     setUser(e.target.value,{ ...user });
-    // setUser({ ...user, [e.target.name]: e.target.value });
+     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
   const handleSignup = async (e) => {
@@ -38,6 +41,18 @@ function Signup() {
       setTimeout(() => navigate("/login"), 1000);
     } catch (error) {
       toast.error(error.message, { position: "top-center" });
+    }
+  };
+
+  //google api
+  const { isLoaded } = useJsApiLoader({
+    googleMapsApiKey: "AIzaSyBVI1DAZdvm1_AlxMSiQ3BKgmYxpE9QbEM",
+    libraries: ["places"],
+  });
+
+  const handlePlaceChanged = () => {
+    if (searchBox) {
+      const places = searchBox.getPlaces();
     }
   };
 
@@ -79,6 +94,23 @@ function Signup() {
             value={user.contact}
             onChange={handleChange}
           />
+
+            {isLoaded && (
+            <StandaloneSearchBox
+            onLoad={(ref) => setSearchBox(ref)}
+            onPlacesChanged={handlePlaceChanged}
+            >
+              <input
+                type="text"
+                name="address"
+                className="signup-contact"
+                placeholder="Enter your Address"
+                value={user.address}
+                onChange={handleChange}
+              />
+            </StandaloneSearchBox>
+          )}
+          
           <button className="signup-button" type="submit">Signup</button>
         </form>
         <p className="login-link">

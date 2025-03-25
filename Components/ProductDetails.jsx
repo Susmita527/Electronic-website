@@ -2,10 +2,12 @@ import React,{useEffect,useState} from 'react'
 import { useParams} from "react-router-dom";
 import { getProductsById } from '../Api/Ecom';
 import "../src/Styles/productdetails.css"
+import HandleAddtoCart from './HandleAddtoCart';
 
 function ProductDetails() {
       const { productId } = useParams(); 
       const [product, setProduct] = useState(null);
+      const[cart,setCart]=useState([]);
       useEffect(() => {
             const fetchProductDetails = async () => {
               const data = await getProductsById(productId);
@@ -25,7 +27,7 @@ function ProductDetails() {
         <p className="productt-price">₹{product.price}</p>
         <p className="productt-description" dangerouslySetInnerHTML={{ __html: product.description }}></p>
         <div className="buttons">
-          <button className="add-to-cartt">Add to Cart</button>
+          <button className="add-to-cartt" onClick={()=>HandleAddtoCart(product,setCart)}>Add to Cart</button>
           
         </div>
       </div>

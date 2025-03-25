@@ -5,7 +5,6 @@ import { FaRegHeart } from "react-icons/fa";
 import Filter from "../UI/Filter";
 import "../src/Styles/productlist.css";
 import Pagenation from "../UI/Pagenation";
-import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import HandleAddtoCart from "./HandleAddtoCart";
 

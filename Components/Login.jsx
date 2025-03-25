@@ -24,9 +24,16 @@ function Login() {
     setError("");
 
     try {
-      await signInWithEmailAndPassword(auth, loginData.email, loginData.password);
-      toast.success("Login Successful!", { position: "top-center" ,autoClose: 1000, });
-            setTimeout(() => navigate("/"), 1000);
+      const userCredential = await signInWithEmailAndPassword(auth, loginData.email, loginData.password);
+      const user = userCredential.user;
+      console.log("user credential",user);
+      const userData = {
+        uid: user.uid,
+        email: user.email,
+      };
+       localStorage.setItem("user", JSON.stringify(userData));
+       toast.success("Login Successful!", { position: "top-center" ,autoClose: 1000, });
+      setTimeout(() => navigate("/"), 1000);
     } catch (error) {
       setError("Invalid email or password!");
     }
