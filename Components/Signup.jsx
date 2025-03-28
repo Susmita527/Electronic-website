@@ -8,51 +8,85 @@ import "react-toastify/dist/ReactToastify.css";
 import {GoogleMap,useJsApiLoader,StandaloneSearchBox} from '@react-google-maps/api'
 
 
+const LOCATIONIQ_API_KEY = "pk.b93393bec29c2cbf42f13d70ba0efeae"; 
+
 function Signup() {
   const [user, setUser] = useState({
     name: "",
     email: "",
     password: "",
     contact: "",
-    address:"",
+    address: "",
   });
 
   const [error, setError] = useState("");
-  const [searchBox, setSearchBox] = useState(null);
+  const [suggestions, setSuggestions] = useState([]);
   const navigate = useNavigate();
-  
 
+  // Handle Input Change
   const handleChange = (e) => {
-     setUser({ ...user, [e.target.name]: e.target.value });
+    setUser({ ...user, [e.target.name]: e.target.value });
+
+    if (e.target.name === "address") {
+      fetchAddressSuggestions(e.target.value);
+    }
   };
 
-  const handleSignup = async (e) => {
-    e.preventDefault();
-    setError("");
-
-    if (!user.name || !user.email || !user.password || !user.contact) {
-      toast.error("All fields are required!", { position: "top-center" });
+  const fetchAddressSuggestions = async (query) => {
+    if (!query) {
+      setSuggestions([]);
       return;
     }
 
     try {
-      await createUserWithEmailAndPassword(auth, user.email, user.password);
-      toast.success("Signup Successful!", { position: "top-center" });
-      setTimeout(() => navigate("/login"), 1000);
+      const response = await fetch(
+        `https://api.locationiq.com/v1/autocomplete.php?key=${LOCATIONIQ_API_KEY}&q=${query}&limit=5`
+      );
+      const data = await response.json();
+      if (data ) {
+        setSuggestions(data);
+      } else {
+        setSuggestions([]);
+      }
     } catch (error) {
-      toast.error(error.message, { position: "top-center" });
+      console.error("Error fetching address suggestions:", error);
     }
   };
 
-  //google api
-  const { isLoaded } = useJsApiLoader({
-    googleMapsApiKey: "AIzaSyBVI1DAZdvm1_AlxMSiQ3BKgmYxpE9QbEM",
-    libraries: ["places"],
-  });
+  // Select Address from Suggestions
+  const handleSelectAddress = (address) => {
+    setUser({ ...user, address });
+    setSuggestions([]);
+  };
 
-  const handlePlaceChanged = () => {
-    if (searchBox) {
-      const places = searchBox.getPlaces();
+ 
+  const handleSignup = async (e) => {
+    
+    e.preventDefault();
+    setError("");
+  
+    if (!user.name || !user.email || !user.password || !user.contact || !user.address) {
+      toast.error("All fields are required!", { position: "top-center" });
+      return;
+    }
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, user.email, user.password);
+
+      const newUser = {
+        name: user.name,
+        email: user.email,
+        contact: user.contact,
+        address: user.address,
+        uid: userCredential.user.uid, 
+      };
+  
+        const existingUsers = JSON.parse(localStorage.getItem("userdetails")) || [];
+        const updatedUsers = [...existingUsers, newUser];
+        localStorage.setItem("userdetails", JSON.stringify(updatedUsers));
+        toast.success("Signup Successful!", { position: "top-center" });
+        setTimeout(() => navigate("/login"), 1000);
+    }   catch (error) {
+      toast.error(error.message, { position: "top-center" });
     }
   };
 
@@ -95,22 +129,27 @@ function Signup() {
             onChange={handleChange}
           />
 
-            {isLoaded && (
-            <StandaloneSearchBox
-            onLoad={(ref) => setSearchBox(ref)}
-            onPlacesChanged={handlePlaceChanged}
-            >
-              <input
-                type="text"
-                name="address"
-                className="signup-contact"
-                placeholder="Enter your Address"
-                value={user.address}
-                onChange={handleChange}
-              />
-            </StandaloneSearchBox>
-          )}
-          
+          <div className="autocomplete-container">
+            <input
+              type="text"
+              name="address"
+              className="signup-contact"
+              placeholder="Enter your Address"
+              value={user.address}
+              onChange={handleChange}
+            />
+            {/* Display Address Suggestions */}
+            {suggestions.length > 0 && (
+              <ul className="autocomplete-suggestions" style={{ display: user.address ? "block" : "none" }}>
+                {suggestions.map((item, index) => (
+                  <li key={index} onClick={() => handleSelectAddress(item.display_name)}>
+                    {item.display_name}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+
           <button className="signup-button" type="submit">Signup</button>
         </form>
         <p className="login-link">
@@ -120,5 +159,4 @@ function Signup() {
     </div>
   );
 }
-
 export default Signup;

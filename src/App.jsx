@@ -17,6 +17,7 @@ import { ToastContainer } from "react-toastify";
 import Signup from '../Components/Signup';
 import Login from '../Components/Login';
 import Success from '../UI/Success';
+import Userprofile from '../UI/Userprofile';
 
 function App() {
  
@@ -36,6 +37,7 @@ function App() {
         <Route path="/signup" element={<Signup />} /> 
         <Route path="/login" element={<Login />} />  
         <Route path="/success" element={<Success />} />  
+        <Route path="/profile" element={<Userprofile />} />  
       </Routes>
       <ToastContainer />
       <Footer/>

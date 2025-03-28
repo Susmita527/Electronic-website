@@ -26,6 +26,7 @@ function Navbar() {
   const handleLogout = async () => {
     try {
       await signOut(auth); 
+      localStorage.removeItem("currentUser");
       navigate("/"); 
     } catch (error) {
       console.error("Logout failed:", error);

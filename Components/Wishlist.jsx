@@ -38,7 +38,7 @@ function Wishlist() {
               <button
                 className="wishlist-btnn remove-wishlist"
                 onClick={(e) => {
-                  e.stopPropagation(); // Prevents navigating to product details
+                  e.stopPropagation(); 
                   removeFromWishlist(product.id);
                 }}
               >

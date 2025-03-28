@@ -13,10 +13,10 @@ function Cart() {
     console.log("after cart",cart);
   }, [cart]);
 
-  useEffect(() => {
-    const storedUser = JSON.parse(localStorage.getItem("user"));
-    setUser(storedUser);
-  }, []);
+  // useEffect(() => {
+  //   const storedUser = JSON.parse(localStorage.getItem("user"));
+  //   setUser(storedUser);
+  // }, []);
 
   const removeFromCart = (id) => {
     const updatedCart = cart.filter((item) => item.id !== id);
@@ -24,7 +24,7 @@ function Cart() {
     localStorage.setItem("cart", JSON.stringify(updatedCart));
   };
 
-  const loadRazorpayScript = () => {
+  const loadRazorpayScript = () => {              
     return new Promise((resolve) => {
       if (window.Razorpay) {
         resolve(true);
@@ -39,7 +39,7 @@ function Cart() {
   };
 
   const handlePayment = async () => {
-    const user = JSON.parse(localStorage.getItem("user"));
+    const user = JSON.parse(localStorage.getItem("currentUser"));
     if (!user) {
       alert("Please login to proceed to checkout.");
       navigate("/login");  

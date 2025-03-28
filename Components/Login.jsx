@@ -25,19 +25,26 @@ function Login() {
 
     try {
       const userCredential = await signInWithEmailAndPassword(auth, loginData.email, loginData.password);
-      const user = userCredential.user;
-      console.log("user credential",user);
-      const userData = {
-        uid: user.uid,
-        email: user.email,
-      };
-       localStorage.setItem("user", JSON.stringify(userData));
-       toast.success("Login Successful!", { position: "top-center" ,autoClose: 1000, });
+      
+      // Fetch all users from LocalStorage
+      const allUsers = JSON.parse(localStorage.getItem("userdetails")) || [];
+
+      // Find the user details matching the logged-in email
+      const loggedInUser = allUsers.find((user) => user.email === loginData.email);
+
+      if (loggedInUser) {
+        // Store only the logged-in user's details separately
+        localStorage.setItem("currentUser", JSON.stringify(loggedInUser));
+      }
+
+      toast.success("Login Successful!", { position: "top-center" });
       setTimeout(() => navigate("/"), 1000);
+
     } catch (error) {
-      setError("Invalid email or password!");
+      toast.error(error.message, { position: "top-center" });
     }
   };
+  
 
   return (
     <div className="login-container">
