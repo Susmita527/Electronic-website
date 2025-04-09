@@ -1,5 +1,4 @@
 import React ,{useState} from 'react'
-
 import Subcategoryy from '../Categoryfetch/Category'
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./App.css"
@@ -18,6 +17,7 @@ import Signup from '../Components/Signup';
 import Login from '../Components/Login';
 import Success from '../UI/Success';
 import Userprofile from '../UI/Userprofile';
+import MyOrder from '../Components/MyOrder';
 
 function App() {
  
@@ -38,6 +38,8 @@ function App() {
         <Route path="/login" element={<Login />} />  
         <Route path="/success" element={<Success />} />  
         <Route path="/profile" element={<Userprofile />} />  
+        <Route path="/order" element={<MyOrder />} />  
+        
       </Routes>
       <ToastContainer />
       <Footer/>

@@ -86,6 +86,7 @@ function Navbar() {
                {user ? (
                 <>
                   <Link to="/profile">👤 Profile</Link>
+                  <Link to="/order">👜 MyOrder</Link>
                   <button onClick={handleLogout} className="logout-btn">🚪 Logout</button>
                 </>
               ) : (

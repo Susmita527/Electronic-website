@@ -60,20 +60,75 @@ function Cart() {
       currency: "INR",
       name: "Electronic Store",
       description: "Purchase Products",
-      handler: function (response) {
-        alert(`Payment successful! Payment ID: ${response.razorpay_payment_id}`);
-        localStorage.removeItem("cart");
-        setCart([]);
-        navigate("/success");
-      },
-      theme: {
-        color: "#3399cc",
-      },
-    };
 
+      handler: async function (response) {
+        alert(`Payment successful! Payment ID: ${response.razorpay_payment_id}`);
+      
+        const orderPayload = {
+          payment_method: "razorpay",
+          payment_method_title: "Razorpay",
+          set_paid: true,
+          billing: {
+            first_name: user.name,
+            email: user.email,
+          },
+          meta_data: [
+            {
+              key: "razorpay_payment_id",
+              value: response.razorpay_payment_id,
+            }
+          ],
+          line_items: cart.map(item => ({
+            product_id: item.id,
+            quantity: 1,
+          })),
+        };
+      
+        try {
+          const res = await fetch("https://devfolio.co.in/onlinestore/wp-json/wc/v3/orders", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Basic " + btoa("ck_56744b29098d0eb3fc9febec23193f43fe86549b:cs_5374c49b885632c44634349b1cb4f98fdff1bf96"),
+            },
+            body: JSON.stringify(orderPayload),
+          });
+      
+          const orderData = await res.json();
+          console.log("WooCommerce Order Created:", orderData);
+      
+         
+          const userOrders = JSON.parse(localStorage.getItem("orderHistory")) || {};
+          const newOrder = {
+            id: orderData.id,
+            wooOrderId: orderData.id,
+            razorpayId: response.razorpay_payment_id,
+            userId: user.uid,
+            line_items: cart,
+            total: cart.reduce((total, item) => total + parseFloat(item.price || 0), 0),
+            status: "Paid",
+            date_created: new Date().toISOString(),
+          };
+      
+          if (!userOrders[user.uid]) userOrders[user.uid] = [];
+          userOrders[user.uid].push(newOrder);
+          localStorage.setItem("orderHistory", JSON.stringify(userOrders));
+      
+          localStorage.removeItem("cart");
+          setCart([]);
+          navigate("/success");
+      
+        } catch (err) {
+          console.error("WooCommerce Order Error:", err);
+          alert("Order placed on Razorpay but failed to sync with WooCommerce.");
+        }
+      }
+    };
     const paymentObject = new window.Razorpay(options);
     paymentObject.open();
   };
+  
+
   return (
     <div className="shopping-cart-page">
       <div className="shopping-cart-container">
@@ -121,5 +176,6 @@ function Cart() {
     </div>
   );
 }
+
 
 export default Cart;
